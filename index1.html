@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammad Dassen — AWS Cloud Architect & Consultant</title>
+<style>
+  :root {
+    --bg: #07090f;
+    --surface: #0e1219;
+    --surface2: #141820;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8edf5;
+    --muted: #6b7a94;
+    --accent: #c084fc;
+    --accent2: #818cf8;
+    --gold: #f59e0b;
+    --green: #34d399;
+    --blue: #60a5fa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+  body { background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, #0a0812 0%, #0d1018 60%, #0a0e18 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 24px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(192,132,252,0.10) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block; font-size: 0.62rem; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent); font-weight: 700;
+    background: rgba(192,132,252,0.08); border: 1px solid rgba(192,132,252,0.2);
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: Georgia, serif; font-size: 2.4rem; font-weight: 700;
+    color: var(--text); line-height: 1.15; margin-bottom: 10px;
+  }
+  .hero h1 span { color: var(--accent); font-style: italic; }
+  .hero-role {
+    font-size: 0.85rem; color: var(--muted); margin-bottom: 28px; letter-spacing: 0.5px;
+  }
+  .hero-chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .chip {
+    font-size: 0.65rem; padding: 4px 12px; border-radius: 20px; font-weight: 600;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .chip.gold { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.25); color: var(--gold); }
+  .chip.green { background: rgba(52,211,153,0.08); border-color: rgba(52,211,153,0.25); color: var(--green); }
+  .chip.blue { background: rgba(96,165,250,0.08); border-color: rgba(96,165,250,0.25); color: var(--blue); }
+  .chip.purple { background: rgba(192,132,252,0.08); border-color: rgba(192,132,252,0.25); color: var(--accent); }
+
+  .hero-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-family: Georgia, serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  /* ── Nav Bar ── */
+  .topnav {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    display: flex; justify-content: center; gap: 4px; padding: 0 16px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .topnav a {
+    padding: 14px 16px; font-size: 0.72rem; font-weight: 600; color: var(--muted);
+    text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .topnav a:hover { color: var(--text); }
+  .topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ── Section ── */
+  .section { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+  .section-label {
+    font-size: 0.6rem; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 3px; margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: Georgia, serif; font-size: 1.4rem; color: var(--text);
+    margin-bottom: 6px;
+  }
+  .section-desc { font-size: 0.77rem; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
+
+  /* ── Resource Cards ── */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .resource-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 22px; text-decoration: none; color: inherit;
+    transition: all 0.25s; display: block; position: relative; overflow: hidden;
+  }
+  .resource-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    border-radius: 16px 16px 0 0; opacity: 0; transition: opacity 0.25s;
+  }
+  .resource-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.14); }
+  .resource-card:hover::before { opacity: 1; }
+
+  .rc-purple::before { background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+  .rc-gold::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+  .rc-green::before { background: linear-gradient(90deg, #059669, #34d399); }
+  .rc-blue::before { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+  .rc-red::before { background: linear-gradient(90deg, #dc2626, #f87171); }
+
+  .rc-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .rc-type { font-size: 0.58rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 6px; }
+  .rc-purple .rc-type { color: var(--accent); }
+  .rc-gold .rc-type { color: var(--gold); }
+  .rc-green .rc-type { color: var(--green); }
+  .rc-blue .rc-type { color: var(--blue); }
+  .rc-red .rc-type { color: #f87171; }
+
+  .rc-title { font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
+  .rc-desc { font-size: 0.7rem; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+  .rc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+  .rc-tag { font-size: 0.58rem; padding: 2px 8px; border-radius: 5px; background: rgba(255,255,255,0.05); color: var(--muted); }
+  .rc-link {
+    font-size: 0.67rem; font-weight: 700; display: flex; align-items: center; gap: 5px;
+    transition: gap 0.2s;
+  }
+  .rc-purple .rc-link { color: var(--accent); }
+  .rc-gold .rc-link { color: var(--gold); }
+  .rc-green .rc-link { color: var(--green); }
+  .rc-blue .rc-link { color: var(--blue); }
+  .rc-red .rc-link { color: #f87171; }
+  .resource-card:hover .rc-link { gap: 8px; }
+
+  /* ── About Section ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .about-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px;
+  }
+  .about-card h3 { font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .about-card p { font-size: 0.72rem; color: var(--muted); line-height: 1.7; }
+  .skill-list { list-style: none; }
+  .skill-list li {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.71rem;
+  }
+  .skill-list li:last-child { border-bottom: none; }
+  .skill-name { color: var(--text); }
+  .skill-bar-wrap { width: 80px; height: 4px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+  .skill-bar { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+
+  /* ── Contact ── */
+  .contact-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .contact-btn {
+    padding: 10px 20px; border-radius: 10px; font-size: 0.73rem; font-weight: 700;
+    text-decoration: none; transition: all 0.2s; display: flex; align-items: center; gap: 7px;
+  }
+  .contact-btn.primary {
+    background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #0a0e1a;
+  }
+  .contact-btn.ghost {
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text);
+  }
+  .contact-btn:hover { transform: translateY(-2px); opacity: 0.92; }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border); text-align: center;
+    padding: 28px 24px; font-size: 0.67rem; color: var(--muted);
+  }
+  footer span { color: var(--accent); }
+
+  /* ── Divider ── */
+  .divider { border: none; border-top: 1px solid var(--border); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.7rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">☁️ AWS Cloud Architect & Strategic Consultant</div>
+  <h1>Mohammad <span>Dassen</span></h1>
+  <div class="hero-role">Senior IT Infrastructure Specialist · Cloud Advisory · Saudi Arabia</div>
+  <div class="hero-chips">
+    <span class="chip gold">🏅 AWS Certified</span>
+    <span class="chip green">20+ Years Experience</span>
+    <span class="chip blue">Vision 2030 Aligned</span>
+    <span class="chip purple">Strategic Consulting</span>
+    <span class="chip">📍 Riyadh, KSA</span>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Years Experience</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Learning Modules</div></div>
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Roadmap Phases</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Ambition</div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="topnav">
+  <a href="index.html" class="active">Home</a>
+  <a href="aws-roadmap.html">AWS Roadmap</a>
+  <a href="phase5-consulting.html">Phase 5 Curriculum</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- RESOURCES SECTION -->
+<div class="section">
+  <div class="section-label">Knowledge Hub</div>
+  <div class="section-title">AWS Architecture Resources</div>
+  <div class="section-desc">A curated collection of interactive tools, roadmaps, and curriculum guides built to support my journey from senior IT infrastructure specialist to AWS Strategic Consulting Architect.</div>
+
+  <div class="cards-grid">
+
+    <a href="aws-roadmap.html" class="resource-card rc-gold">
+      <div class="rc-icon">🏛️</div>
+      <div class="rc-type">Interactive Roadmap</div>
+      <div class="rc-title">AWS Solutions Architect — 18-Month Mastery Roadmap</div>
+      <div class="rc-desc">A complete, structured 5-phase learning pathway from Cloud Foundations to Strategic Consulting, with certification targets and domain mapping.</div>
+      <div class="rc-tags">
+        <span class="rc-tag">SAA-C03</span><span class="rc-tag">SAP-C02</span>
+        <span class="rc-tag">5 Phases</span><span class="rc-tag">18 Months</span>
+      </div>
+      <div class="rc-link">Open Roadmap →</div>
+    </a>
+
+    <a href="phase5-consulting.html" class="resource-card rc-purple">
+      <div class="rc-icon">🎓</div>
+      <div class="rc-type">Interactive Curriculum</div>
+      <div class="rc-title">Phase 5 — Strategic Consulting Mastery Curriculum</div>
+      <div class="rc-desc">An 8-module step-by-step curriculum covering Well-Architected Reviews, Cloud Governance, Executive Communication, TCO Analysis, CCoE Leadership, and APN practice building.</div>
+      <div class="rc-tags">
+        <span class="rc-tag">WAF Reviews</span><span class="rc-tag">FinOps</span>
+        <span class="rc-tag">Executive Briefing</span><span class="rc-tag">APN</span>
+      </div>
+      <div class="rc-link">Open Curriculum →</div>
+    </a>
+
+    <a href="#" class="resource-card rc-green" style="opacity:0.6; cursor:default;">
+      <div class="rc-icon">💰</div>
+      <div class="rc-type">Coming Soon</div>
+      <div class="rc-title">Cloud TCO Calculator</div>
+      <div class="rc-desc">An interactive tool for building Total Cost of Ownership comparisons between on-premises infrastructure and AWS — tailored for Saudi enterprise clients.</div>
+      <div class="rc-tags">
+        <span class="rc-tag">TCO Analysis</span><span class="rc-tag">FinOps</span>
+        <span class="rc-tag">Business Case</span>
+      </div>
+      <div class="rc-link">Coming Soon</div>
+    </a>
+
+    <a href="#" class="resource-card rc-blue" style="opacity:0.6; cursor:default;">
+      <div class="rc-icon">🔐</div>
+      <div class="rc-type">Coming Soon</div>
+      <div class="rc-title">NCA & PDPL Compliance Checklist</div>
+      <div class="rc-desc">An interactive compliance checklist mapping AWS controls to Saudi NCA Cybersecurity Controls and PDPL requirements — built for government and enterprise clients.</div>
+      <div class="rc-tags">
+        <span class="rc-tag">NCA CCC</span><span class="rc-tag">PDPL</span>
+        <span class="rc-tag">Compliance</span><span class="rc-tag">KSA</span>
+      </div>
+      <div class="rc-link">Coming Soon</div>
+    </a>
+
+    <a href="#" class="resource-card rc-red" style="opacity:0.6; cursor:default;">
+      <div class="rc-icon">🏗️</div>
+      <div class="rc-type">Coming Soon</div>
+      <div class="rc-title">Well-Architected Review Template</div>
+      <div class="rc-desc">A structured WAR deliverable template — ready to customize and present to clients as a professional consulting output.</div>
+      <div class="rc-tags">
+        <span class="rc-tag">WAF</span><span class="rc-tag">6 Pillars</span>
+        <span class="rc-tag">Consulting</span>
+      </div>
+      <div class="rc-link">Coming Soon</div>
+    </a>
+
+    <a href="#" class="resource-card rc-purple" style="opacity:0.6; cursor:default;">
+      <div class="rc-icon">🌱</div>
+      <div class="rc-type">Coming Soon</div>
+      <div class="rc-title">Cloud Governance Framework Builder</div>
+      <div class="rc-desc">An interactive tool for designing and documenting a cloud governance framework — covering FinOps, security, tagging strategy, and multi-account design.</div>
+      <div class="rc-tags">
+        <span class="rc-tag">Governance</span><span class="rc-tag">Control Tower</span>
+        <span class="rc-tag">Landing Zone</span>
+      </div>
+      <div class="rc-link">Coming Soon</div>
+    </a>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ABOUT SECTION -->
+<div class="section" id="about">
+  <div class="section-label">About</div>
+  <div class="section-title">Background & Expertise</div>
+  <div class="section-desc">Senior IT Infrastructure Specialist with 20+ years of experience, now transitioning toward cloud strategic advisory and consulting leadership in the Saudi market.</div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>🎯 Consulting Focus</h3>
+      <p>Specializing in cloud transformation advisory for Saudi government entities, universities, and enterprises. Active client work includes Princess Nourah bint Abdulrahman University (PNU) and Imam Mohammad Ibn Saud Islamic University (IMAMU). Aligned with Vision 2030 digital transformation objectives and Digital Government Standard 5.13.2.</p>
+    </div>
+    <div class="about-card">
+      <h3>🏅 Certifications & Skills</h3>
+      <ul class="skill-list">
+        <li><span class="skill-name">Cloud Architecture</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></li>
+        <li><span class="skill-name">IT Infrastructure</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div></li>
+        <li><span class="skill-name">AWS Services</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></li>
+        <li><span class="skill-name">Executive Advisory</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div></li>
+        <li><span class="skill-name">Cloud Governance</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div></li>
+        <li><span class="skill-name">FinOps & TCO</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:60%"></div></div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- CONTACT SECTION -->
+<div class="section" id="contact">
+  <div class="section-label">Connect</div>
+  <div class="section-title">Get in Touch</div>
+  <div class="section-desc" style="margin-bottom:20px;">Open to cloud advisory engagements, consulting partnerships, and strategic conversations about cloud transformation in Saudi Arabia.</div>
+  <div class="contact-row">
+    <a href="https://linkedin.com" target="_blank" class="contact-btn primary">🔗 Connect on LinkedIn</a>
+    <a href="mailto:your@email.com" class="contact-btn ghost">✉️ Send Email</a>
+    <a href="https://aws.amazon.com/partners/" target="_blank" class="contact-btn ghost">☁️ AWS Partner Network</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Built with purpose · <span>Mohammad Dassen</span> · AWS Cloud Architect & Strategic Consultant · Riyadh, Saudi Arabia
+</footer>
+
+</body>
+</html>
